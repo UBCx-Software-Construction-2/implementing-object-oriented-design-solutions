@@ -11,9 +11,21 @@ public abstract class BrassInstrument implements Instrument {
     }
 
     public void setOrchestra(Orchestra orchestra) {
-        if (!this.orchestra.equals(orchestra)) {
+        if (!orchestra.equals(this.orchestra)) {
+            Orchestra oldOrchestra = this.orchestra;
             this.orchestra = orchestra;
+            if (oldOrchestra != null) {
+                oldOrchestra.removeBrassInstrument(this);
+            }
             orchestra.addBrassInstrument(this);
+        }
+    }
+
+    public void removeOrchestra() {
+        if (orchestra != null) {
+            Orchestra oldOrchestra = orchestra;
+            orchestra = null;
+            oldOrchestra.removeBrassInstrument(this);
         }
     }
 
