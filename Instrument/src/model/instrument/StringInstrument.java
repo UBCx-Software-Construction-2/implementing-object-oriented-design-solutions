@@ -11,9 +11,21 @@ public abstract class StringInstrument implements Instrument {
     }
 
     public void setOrchestra(Orchestra orchestra) {
-        if (!this.orchestra.equals(orchestra)) {
+        if (!orchestra.equals(this.orchestra)) {
+            Orchestra oldOrchestra = this.orchestra;
             this.orchestra = orchestra;
+            if (oldOrchestra != null) {
+                oldOrchestra.removeStringInstrument(this);
+            }
             orchestra.addStringInstrument(this);
+        }
+    }
+
+    public void removeOrchestra() {
+        if (orchestra != null) {
+            Orchestra oldOrchestra = orchestra;
+            orchestra = null;
+            oldOrchestra.removeStringInstrument(this);
         }
     }
 

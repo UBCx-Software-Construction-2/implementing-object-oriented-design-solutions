@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 public class Orchestra {
 
-    private ArrayList<BrassInstrument> brassInstruments = new ArrayList<>();
-    private ArrayList<StringInstrument> stringInstruments = new ArrayList<>();
+    private final ArrayList<BrassInstrument> brassInstruments;
+    private final ArrayList<StringInstrument> stringInstruments;
 
     public Orchestra(ArrayList<BrassInstrument> brassInstruments, ArrayList<StringInstrument> stringInstruments) {
         this.brassInstruments = brassInstruments;
@@ -22,10 +22,24 @@ public class Orchestra {
         }
     }
 
+    public void removeBrassInstrument(BrassInstrument b) {
+        if(brassInstruments.contains(b)) {
+            brassInstruments.remove(b);
+            b.removeOrchestra();
+        }
+    }
+
     public void addStringInstrument(StringInstrument s) {
         if(!stringInstruments.contains(s)) {
             stringInstruments.add(s);
             s.setOrchestra(this);
+        }
+    }
+
+    public void removeStringInstrument(StringInstrument s) {
+        if(stringInstruments.contains(s)) {
+            stringInstruments.remove(s);
+            s.removeOrchestra();
         }
     }
 
